@@ -15,7 +15,11 @@ RUCT_TEST_DEFINE(forward_down,
     RUCT_ASSERT_FEQ("vy = 0y", v.y, 1);
 )
 
-RUCT_TEST_MODULE( "abc_test",
+RUCT_TESTMODULE(abc_test,
     RUCT_TEST(forward_right);
     RUCT_TEST(forward_down);
 )
+
+int main() {
+    RUCT_RUN_TESTMODULE(abc_test);
+}
