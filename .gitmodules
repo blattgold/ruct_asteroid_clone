@@ -1,0 +1,3 @@
+[submodule "ruct"]
+	path = ruct
+	url = https://github.com/blattgold/ruct
