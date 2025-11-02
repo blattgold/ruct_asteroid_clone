@@ -6,9 +6,6 @@
 #include "util.h"
 #include "world.h"
 
-#define RUCT_STRIP_PREFIX
-#include "ruct/ruct.h"
-
 void Player_init(Player* player, World* world) {
     player->pos.x = (float)SCREEN_WIDTH / 2;
     player->pos.y = (float)SCREEN_HEIGHT / 2;

@@ -1,7 +1,7 @@
 #include <raymath.h>
 
-#include "ruct/ruct.h"
-#include "util.h"
+#include "../ruct/ruct.h"
+#include "../src/util.h"
 
 RUCT_TEST_DEFINE(forward_right,
     Vector2 v  = forward_rotated(0);
