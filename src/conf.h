@@ -25,7 +25,6 @@
 #define ASTEROID_SMALL_SPEED_MIN 40
 #define ASTEROID_SMALL_SPEED_MAX 110
 
-
 #define DRAW_DIR false
 #define DRAW_DIR_LEN 200
 

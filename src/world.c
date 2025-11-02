@@ -32,7 +32,7 @@ void Projectile_drawDir(Ruct_Projectile* proj) {
 
 // -----
 
-void Asteroid_spawn(World *world, Vector2 pos, f32 rot, enum AsteroidSize size) {
+Ruct_Result_None Asteroid_spawn(World *world, Vector2 pos, f32 rot, enum AsteroidSize size) {
     Vector2 mov;
     Vector2 forward = forward_rotated(rot * DEG2RAD);
     switch(size) {
@@ -55,11 +55,12 @@ void Asteroid_spawn(World *world, Vector2 pos, f32 rot, enum AsteroidSize size) 
             break;
         }
         default: {
-            RUCT_PANIC("Invalid asteroid size received");
+            return Ruct_Err_None("invalid asteroid size");
         }
     }
     Ruct_Asteroid asteroid = {.pos = pos, .mov = mov, .rot = rot, .size = size };
     Ruct_push_VecAsteroid(&world->asteroids, asteroid);
+    return RUCT_OK_NONE;
 }
 
 void Asteroid_update(Ruct_Asteroid* asteroid) {
@@ -81,11 +82,10 @@ void Asteroid_drawDir(Ruct_Asteroid* asteroid) {
 
 Ruct_Result_None World_init(World* world) {
     srand(time(NULL));
-    world->projectiles = Ruct_unwrap_VecProjectile(Ruct_new_VecProjectile());
-    world->projectile_lifetime_timers = Ruct_unwrap_VecF32(Ruct_new_VecF32());
-    world->asteroids = Ruct_unwrap_VecAsteroid(Ruct_new_VecAsteroid());
-
-    return Ruct_Ok_None(RUCT_NONE);
+    world->projectiles = RUCT_TRY_CONVERT(Ruct_new_VecProjectile(), Ruct_Err_None);
+    world->projectile_lifetime_timers = RUCT_TRY_CONVERT(Ruct_new_VecF32(), Ruct_Err_None);
+    world->asteroids = RUCT_TRY_CONVERT(Ruct_new_VecAsteroid(), Ruct_Err_None);
+    return RUCT_OK_NONE;
 }
 
 void World_free(World* world) {

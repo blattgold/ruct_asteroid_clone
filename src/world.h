@@ -5,7 +5,7 @@ void Projectile_spawn(World* world, Vector2 pos, f32 rot, enum Team team);
 void Projectile_update(Ruct_Projectile* proj);
 void Projectile_draw(Ruct_Projectile* proj);
 
-void Asteroid_spawn(World* world, Vector2 pos, f32 rot, enum AsteroidSize);
+Ruct_Result_None Asteroid_spawn(World* world, Vector2 pos, f32 rot, enum AsteroidSize);
 
 // world->projectiles must be freed
 // fixed capacity of 1024 (enough)

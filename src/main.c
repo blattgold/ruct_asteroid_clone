@@ -56,7 +56,7 @@ int main() {
     if (opt_usize.is_some) printf("opt_usize is Some: %zu\n", opt_usize.some);
     Ruct_free_VecUSize(&vec_usize);
 
-    Asteroid_spawn(&world, (Vector2) {.x = 100, .y = 200 }, 35, LARGE);
+    Ruct_unwrap_None(Asteroid_spawn(&world, (Vector2) {.x = 100, .y = 200 }, 35, LARGE));
 
     f32 timer = 0;
     f32 last_timer_hit = 0;
