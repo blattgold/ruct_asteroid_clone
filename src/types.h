@@ -20,9 +20,9 @@ typedef struct {
 RUCT_DEFINE_CUSTOM_TYPE(Projectile);
 
 enum AsteroidSize {
-    SMALL,
-    MEDIUM,
-    LARGE,
+    ASTEROID_SIZE_SMALL,
+    ASTEROID_SIZE_MEDIUM,
+    ASTEROID_SIZE_LARGE,
 };
 
 typedef struct {

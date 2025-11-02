@@ -10,6 +10,8 @@
 
 RUCT_APPMODULE(asteroid,
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "raylib window");
+    SetConfigFlags(FLAG_WINDOW_TRANSPARENT);
+    SetWindowMonitor(0);
     SetTargetFPS(155);
 
     World world;
@@ -58,7 +60,14 @@ RUCT_APPMODULE(asteroid,
     if (opt_usize.is_some) printf("opt_usize is Some: %zu\n", opt_usize.some);
     Ruct_free_VecUSize(&vec_usize);
 
-    Ruct_unwrap_None(Asteroid_spawn(&world, (Vector2) {.x = 100, .y = 200 }, 35, LARGE));
+    usize i = 0;
+    loop {
+        const Ruct_Result_None r =  Asteroid_spawnRandom(&world, player.pos);
+        RUCT_TRY_DISCARD(r);
+
+        if (i == 10) break;
+        i++;
+    }
 
     f32 timer = 0;
     f32 last_timer_hit = 0;
@@ -103,7 +112,7 @@ RUCT_APPMODULE(asteroid,
                     printf("Asteroid mov x: %f\n", ast.mov.x);
                     printf("Asteroid mov y: %f\n", ast.mov.y);
                     printf("Asteroid rot deg: %f\n", ast.rot);
-                    printf("Asteroid size: %s\n", ast.size == SMALL ? "SMALL" : ast.size == MEDIUM ? "MEDIUM" : "LARGE");
+                    printf("Asteroid size: %s\n", ast.size == ASTEROID_SIZE_SMALL ? "SMALL" : ast.size == ASTEROID_SIZE_MEDIUM ? "MEDIUM" : "LARGE");
                 }
                 printf("---\n");
 
@@ -123,7 +132,7 @@ RUCT_APPMODULE(asteroid,
         World_update(&world);
 
         BeginDrawing();
-        ClearBackground(BLACK);
+        ClearBackground(BLANK);
 
         // draw entities
         Player_draw(&player);
