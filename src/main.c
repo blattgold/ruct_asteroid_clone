@@ -8,24 +8,16 @@
 #include "types.h"
 #include "world.h"
 
-RUCT_TEST_DEFINE(silly_testt,
-    RUCT_ASSERT_EQ("ermagerd", 1, 2);
-)
-
-RUCT_TESTMODULE(testttt,
-    RUCT_TEST(silly_testt);
-)
-
 RUCT_APPMODULE(asteroid,
-    return RUCT_RUN_TESTMODULE(testttt);
-
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "raylib window");
     SetTargetFPS(155);
 
     World world;
     Player player;
 
-    RUCT_TRY(World_init(&world));
+    Ruct_Result_None world_result = World_init(&world);
+    RUCT_TRY_DISCARD(world_result);
+
     Player_init(&player, &world);
 
     Ruct_VecUSize vec_usize = Ruct_unwrap_VecUSize(Ruct_new_VecUSize());
