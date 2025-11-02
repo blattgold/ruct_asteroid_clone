@@ -8,7 +8,16 @@
 #include "types.h"
 #include "world.h"
 
+RUCT_TESTMODULE(asteroid,
+    RUCT_TEST(test_Asteroid_spawnRandom_genPos);
+)
+
 RUCT_APPMODULE(asteroid,
+    {
+        Ruct_Result_None test_result = RUCT_RUN_TESTMODULE(asteroid);
+        RUCT_TRY_DISCARD(test_result);
+    }
+
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "raylib window");
     SetConfigFlags(FLAG_WINDOW_TRANSPARENT);
     SetWindowMonitor(0);

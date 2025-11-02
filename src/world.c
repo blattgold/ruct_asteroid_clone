@@ -1,4 +1,3 @@
-#include <math.h>
 #include <raylib.h>
 #include <raymath.h>
 #include <stdlib.h>
@@ -32,7 +31,6 @@ void Projectile_drawDir(Ruct_Projectile* proj) {
 }
 
 // -----
-
 
 Ruct_Result_None Asteroid_spawn(World *world, Vector2 pos, f32 rot, enum AsteroidSize size) {
     Vector2 mov;
@@ -86,6 +84,7 @@ Vector2 Asteroid_spawnRandom_genPos(World *world, i32 random_num) {
 
     return (Vector2) { .x = x, .y = y };
 }
+
 
 Ruct_Result_None Asteroid_spawnRandom(World *world, Vector2 player_pos) {
     const Vector2 pos = Asteroid_spawnRandom_genPos(world, rand());
@@ -157,9 +156,13 @@ void Asteroid_drawDir(Ruct_Asteroid* asteroid) {
 
 Ruct_Result_None World_init(World* world) {
     srand(time(NULL));
-    world->projectiles = RUCT_TRY_CONVERT(Ruct_new_VecProjectile(), Ruct_Err_None);
-    world->projectile_lifetime_timers = RUCT_TRY_CONVERT(Ruct_new_VecF32(), Ruct_Err_None);
-    world->asteroids = RUCT_TRY_CONVERT(Ruct_new_VecAsteroid(), Ruct_Err_None);
+    Ruct_Result_VecProjectile res_vp = Ruct_new_VecProjectile();
+    Ruct_Result_VecF32 res_vt = Ruct_new_VecF32();
+    Ruct_Result_VecAsteroid res_va = Ruct_new_VecAsteroid();
+
+    world->projectiles = RUCT_TRY_CONVERT(res_vp, Ruct_Err_None);
+    world->projectile_lifetime_timers = RUCT_TRY_CONVERT(res_vt, Ruct_Err_None);
+    world->asteroids = RUCT_TRY_CONVERT(res_va, Ruct_Err_None);
     return RUCT_OK_NONE;
 }
 
@@ -261,3 +264,12 @@ void World_draw(World* world) {
         if (DRAW_DIR) Asteroid_drawDir(maybe_asteroid_ptr.some);
     }
 }
+
+RUCT_TESTDEFINE(test_Asteroid_spawnRandom_genPos,
+    World world;
+    Ruct_Result_None r = World_init(&world);
+    Vector2 pos = Asteroid_spawnRandom_genPos(&world, 1);
+    printf("%f %f\n", pos.x, pos.y);
+    RUCT_ASSERT_FEQ("pos.x = 15", pos.x, 15);
+    RUCT_ASSERT_FEQ("pos.y = 1094", pos.y, 1094);
+)
