@@ -4,7 +4,6 @@
 #include <raylib.h>
 #include <raymath.h>
 
-
 #include "ruct_include.h"
 
 enum Team {
