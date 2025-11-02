@@ -1,5 +1,6 @@
-#include "ruct_include.h"
 #include <raymath.h>
+
+typedef float f32;
 
 Vector2 forward_rotated(float rad) {
     const Vector2 forward = {cosf(rad), sinf(rad)};
