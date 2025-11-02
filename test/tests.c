@@ -16,6 +16,6 @@ RUCT_TEST_DEFINE(forward_down,
 )
 
 RUCT_TEST_MODULE( "abc_test",
-    RUCT_TEST("forward right", forward_right);
-    RUCT_TEST("forward down", forward_down);
+    RUCT_TEST(forward_right);
+    RUCT_TEST(forward_down);
 )
