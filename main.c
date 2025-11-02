@@ -2,7 +2,6 @@
 #include <raymath.h>
 #include <stdio.h>
 
-#include "ruct/ruct.h"
 #include "types.h"
 #include "conf.h"
 #include "player.h"
